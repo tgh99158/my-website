@@ -19,7 +19,8 @@ import numpy as np
 # scrape data
 response = requests.get(
     "https://api.collegefootballdata.com/games",
-    params={"year": 2010, "seasonType": "both"},
+    year = datetime.now().year
+    params = {"year": year, "seasonType": "both"}
     headers = {"Authorization": "Bearer G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa"}
 )
 
