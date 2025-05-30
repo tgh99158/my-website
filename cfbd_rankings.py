@@ -14,7 +14,6 @@ import pandas as pd
 import requests
 import json
 from io import StringIO
-import numpy as np
 
 year = datetime.now().year
 
