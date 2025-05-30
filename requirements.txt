@@ -4,3 +4,4 @@ gunicorn
 xlrd
 requests
 datetime
+IPython
