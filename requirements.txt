@@ -2,3 +2,6 @@ flask
 pandas
 gunicorn
 xlrd
+requests
+json
+io
