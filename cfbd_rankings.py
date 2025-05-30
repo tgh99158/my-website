@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import requests
 import json
-import datetime
+from datetime import datetime
 from io import StringIO
 
 year = datetime.now().year
