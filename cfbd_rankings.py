@@ -16,11 +16,12 @@ import json
 from io import StringIO
 import numpy as np
 
+year = datetime.now().year
+
 # scrape data
 response = requests.get(
     "https://api.collegefootballdata.com/games",
-    year = datetime.now().year
-    params = {"year": year, "seasonType": "both"}
+    params = {"year": year, "seasonType": "both"},
     headers = {"Authorization": "Bearer G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa"}
 )
 
