@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-year = datetime.now().year
+year = datetime.now().year -1
 
 # scrape data
 response = requests.get(
