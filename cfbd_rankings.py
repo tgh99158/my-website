@@ -27,8 +27,8 @@ def get_rankings():
     data = data[
         (data['homePoints'] == data['homePoints'])
         & (data['awayPoints'] == data['awayPoints'])
-        & (pd.notna(data['home_conference']))
-        & (pd.notna(data['away_conference']))
+        & (pd.notna(data['homeConference']))
+        & (pd.notna(data['awayConference']))
     ]
 
     #create copy for dataset with all teams
