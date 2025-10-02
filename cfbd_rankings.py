@@ -1,6 +1,7 @@
 # Load Packages
-from IPython.core.display import HTML
-import xlrd as xl
+import os
+#from IPython.core.display import HTML
+#import xlrd as xl
 import numpy as np
 import pandas as pd
 import requests
@@ -8,11 +9,24 @@ import json
 from io import StringIO
 import numpy as np
 import requests
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 from datetime import datetime
 
 def get_rankings():
-    year = 2023 #####datetime.now().year -1
+    year = datetime.now().year - 1  # Adjust to current or desired season (e.g., 2024 for past data)
+    api_key = os.environ.get('CFBD_API_KEY', 'G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa')  # Fallback to hardcoded if not set
+    response = requests.get(
+        "https://api.collegefootballdata.com/games",
+        params={"year": year, "seasonType": "both"},
+        headers={"Authorization": f"Bearer {api_key}"}
+    )
+    data = pd.read_json(StringIO(response.text))
+    return data
+
+'''
+
+def get_rankings():
+    year = datetime.now().year
     # scrape data
     response = requests.get(
         "https://api.collegefootballdata.com/games",
@@ -24,8 +38,6 @@ def get_rankings():
     data = pd.read_json(StringIO(response.text))
     
     return data
-
-'''
 
 # only include games that have already been played
 data = data[
