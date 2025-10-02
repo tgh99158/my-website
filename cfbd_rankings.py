@@ -23,6 +23,11 @@ response = requests.get(
 # read data as simplestring
 data = pd.read_json(StringIO(response.text))
 
+def get_rankings():
+    return data
+
+raise SystemExit
+
 # only include games that have already been played
 data = data[
     (data['home_points'] == data['home_points'])
@@ -370,5 +375,4 @@ rankings_m['School'] = np.where(rankings_m['School'] == 'Miami (OH)', "Miami_OH"
 rankings_m['AP'] = np.where(rankings_m['AP'].isna(), 'NR',rankings_m['AP'])
 
 
-def get_rankings():
-    return rankings_m
+
