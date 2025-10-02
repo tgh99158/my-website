@@ -62,52 +62,53 @@ def get_rankings():
 
     # group rows by team
     spreads = teams.groupby('team').adj_spread.mean()
+    # create empty arrays
+    ts = []
+    vics = []
+    terms = []
+    solutions = []
+    loss = []
+    schedule = pd.DataFrame(columns = ['Team', 'Victories'])
+
+    for team in spreads.keys():
+        row = []
+     # get a list of team opponents
+        opps = list(teams[teams['team'] == team]['opponent'])
+    # list of wins
+        win = list(teams[(teams['team'] == team) & (teams['spread'] > 0)]['opponent'])
+        losses = list(teams[(teams['team'] == team) & (teams['spread'] < 0)]['opponent'])
+
+        for opp in spreads.keys():
+            if opp == team:
+        # set opponents coefficient to 1 
+                row.append(1)
+            elif opp in opps:
+                # coefficient for opponents should be 1 over the number of opponents
+        	    row.append(-1.0/len(opps))
+            else:
+                # teams not yet played recieve a coefficient of zero
+                row.append(0)
+        terms.append(row)
+
+        # average game spread on the other side of the equation
+        solutions.append(spreads[team])
+    
+        # save opponents
+        loss.append(losses)
+        ts.append(team)
+        vics.append(win)
+    
+
+    schedule['Team'] = ts
+    schedule['Victories'] = vics
+    schedule['Losses'] = loss
+    # solve the linear equation    
+    solutions = np.linalg.solve(np.array(terms), np.array(solutions))
     return teams.head(50)
 '''
 
 
-# create empty arrays
-ts = []
-vics = []
-terms = []
-solutions = []
-loss = []
-schedule = pd.DataFrame(columns = ['Team', 'Victories'])
 
-for team in spreads.keys():
-    row = []
- # get a list of team opponents
-    opps = list(teams[teams['team'] == team]['opponent'])
-# list of wins
-    win = list(teams[(teams['team'] == team) & (teams['spread'] > 0)]['opponent'])
-    losses = list(teams[(teams['team'] == team) & (teams['spread'] < 0)]['opponent'])
-
-    for opp in spreads.keys():
-        if opp == team:
-    # set opponents coefficient to 1 
-            row.append(1)
-        elif opp in opps:
-            # coefficient for opponents should be 1 over the number of opponents
-        	row.append(-1.0/len(opps))
-        else:
-            # teams not yet played recieve a coefficient of zero
-            row.append(0)
-    terms.append(row)
-
-    # average game spread on the other side of the equation
-    solutions.append(spreads[team])
-    
-    # save opponents
-    loss.append(losses)
-    ts.append(team)
-    vics.append(win)
-    
-
-schedule['Team'] = ts
-schedule['Victories'] = vics
-schedule['Losses'] = loss
-# solve the linear equation    
-solutions = np.linalg.solve(np.array(terms), np.array(solutions))
 
 
 # add team names to solutions and create dataframe
