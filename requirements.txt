@@ -3,6 +3,5 @@ pandas
 gunicorn
 xlrd
 requests
-datetime
 IPython
 bs4
