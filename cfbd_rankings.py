@@ -364,7 +364,7 @@ def get_rankings():
     rankings_m['AP'] = np.where(rankings_m['AP'].isna(), 'NR',rankings_m['AP'])
 
 
-    return rankings_m.head(50)
+    return rankings_m.head(5)
 
 
 
