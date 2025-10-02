@@ -165,6 +165,8 @@ def get_rankings():
     mean = PR.adj.mean()
     PR['adj'] = PR['adj'] - mean
 
+    return PR.head(5)
+'''
     # create new data frame for each game containing columns listed below
     home_teams = pd.concat([
         data[['home_team', 'home_points', 'away_points', 'away_team' ,'week']].rename(columns={'home_team': 'team', 'home_points': 'offense',  'away_points': 'defense', 'away_team' : 'opponent'})
@@ -362,9 +364,9 @@ def get_rankings():
 
     # change null rankings to NR
     rankings_m['AP'] = np.where(rankings_m['AP'].isna(), 'NR',rankings_m['AP'])
+'''
 
-
-    return rankings_m.head(5)
+    
 
 
 
