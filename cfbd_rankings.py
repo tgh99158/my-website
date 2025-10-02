@@ -11,19 +11,18 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-year = 2023 #####datetime.now().year -1
-
-# scrape data
-response = requests.get(
-    "https://api.collegefootballdata.com/games",
-    params={"year": year, "seasonType": "both"},
-    headers = {"Authorization": "Bearer G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa"}
-)
-
-# read data as simplestring
-data = pd.read_json(StringIO(response.text))
-
 def get_rankings():
+    year = 2023 #####datetime.now().year -1
+    # scrape data
+    response = requests.get(
+        "https://api.collegefootballdata.com/games",
+        params={"year": year, "seasonType": "both"},
+        headers = {"Authorization": "Bearer G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa"}
+    )
+
+    # read data as simplestring
+    data = pd.read_json(StringIO(response.text))
+    
     return data
 
 '''
