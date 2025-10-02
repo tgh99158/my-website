@@ -127,7 +127,7 @@ def get_rankings():
     loss2 = []
     schedule2 = pd.DataFrame(columns = ['Team', 'Victories','Losses'])
 
-    return teams2
+    return teams2.head(5)
 '''
     for team in teams3:
      # get a list of team opponents
