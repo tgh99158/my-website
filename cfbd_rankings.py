@@ -35,7 +35,7 @@ def get_rankings():
     #create copy for dataset with all teams
     data2 = data
     # only include teams in division one FBS
-    data = data[data['homeClassification']== 'fbs']
+    ##data = data[data['homeClassification']== 'fbs']
     # create spread variable
     data['homeSpread'] = data['homePoints'] - data['awayPoints']
     data['awaySpread'] = -data['homeSpread']
@@ -47,6 +47,9 @@ def get_rankings():
     # subtract 2.5 points from the home teams spread, keep neutral as is, and add 2.5 to away teams.
     data['homeSpread_adj'] = np.where(data['neutralSite'] == True, data['homeSpread'], (data['homeSpread'] - 2.5))
     data['awaySpread_adj'] = -data['homeSpread_adj']
+
+        return data.head(50)
+'''
 
 
     # convert each game into two rows, one for each team and remove unwated rows.
@@ -127,8 +130,7 @@ def get_rankings():
     loss2 = []
     schedule2 = pd.DataFrame(columns = ['Team', 'Victories','Losses'])
 
-    return teams2.head(5)
-'''
+
     for team in teams3:
      # get a list of team opponents
         opps = list(teams2[teams2['team'] == team]['opponent'])
