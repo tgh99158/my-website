@@ -48,7 +48,7 @@ def get_rankings():
     data['homeSpread_adj'] = np.where(data['neutralSite'] == True, data['homeSpread'], (data['homeSpread'] - 2.5))
     data['awaySpread_adj'] = -data['homeSpread_adj']
 
-        return data.head(50)
+    return data.head(50)
 '''
 
 
