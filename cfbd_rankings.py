@@ -13,7 +13,7 @@ import requests
 from datetime import datetime
 
 def get_rankings():
-    year = datetime.now().year - 1  # Adjust to current or desired season (e.g., 2024 for past data)
+    year = datetime.now().year  # Adjust to current or desired season (e.g., 2024 for past data)
     api_key = os.environ.get('CFBD_API_KEY', 'G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa')  # Fallback to hardcoded if not set
     response = requests.get(
         "https://api.collegefootballdata.com/games",
