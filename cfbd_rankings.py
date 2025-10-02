@@ -62,7 +62,7 @@ def get_rankings():
 
     # group rows by team
     spreads = teams.groupby('team').adj_spread.mean()
-    return spreads.head(50)
+    return teams.head(50)
 '''
 
 
