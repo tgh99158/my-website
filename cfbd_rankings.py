@@ -26,7 +26,7 @@ data = pd.read_json(StringIO(response.text))
 def get_rankings():
     return data
 
-raise SystemExit
+'''
 
 # only include games that have already been played
 data = data[
@@ -374,5 +374,5 @@ rankings_m['School'] = np.where(rankings_m['School'] == 'Miami (OH)', "Miami_OH"
 # change null rankings to NR
 rankings_m['AP'] = np.where(rankings_m['AP'].isna(), 'NR',rankings_m['AP'])
 
-
+'''
 
