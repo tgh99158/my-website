@@ -1,7 +1,4 @@
 flask
 pandas
 gunicorn
-xlrd
 requests
-IPython
-bs4
