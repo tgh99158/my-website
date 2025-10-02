@@ -34,8 +34,7 @@ def get_rankings():
     #create copy for dataset with all teams
     data2 = data
     # only include teams in division one FBS
-    data = data[data['home_division']== 'fbs']
-    data = data[data['away_division'] == 'fbs']
+    data = data[data['homeClassification']== 'fbs']
     # create spread variable
     data['home_spread'] = data['home_points'] - data['away_points']
     data['away_spread'] = -data['home_spread']
