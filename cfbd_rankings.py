@@ -21,7 +21,7 @@ def get_rankings():
         headers={"Authorization": f"Bearer {api_key}"}
     )
     data = pd.read_json(StringIO(response.text))
-    return data
+    return data.head()
 
 '''
 
