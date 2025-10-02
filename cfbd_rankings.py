@@ -36,39 +36,34 @@ def get_rankings():
     # only include teams in division one FBS
     data = data[data['homeClassification']== 'fbs']
     # create spread variable
-    data['home_spread'] = data['homePoints'] - data['awayPoints']
-    data['away_spread'] = -data['home_spread']
-    return data.head(50)
+    data['homeSpread'] = data['homePoints'] - data['awayPoints']
+    data['awaySpread'] = -data['homeSpread']
+    
+
+    # change postseason games from week 1 to week 15
+    data['week'] = np.where(data['seasonType'] == 'postseason',15, data['week'])
+
+    # subtract 2.5 points from the home teams spread, keep neutral as is, and add 2.5 to away teams.
+    data['homeSpread_adj'] = np.where(data['neutralSite'] == True, data['homeSpread'], (data['homeSpread'] - 2.5))
+    data['awaySpread_adj'] = -data['homeSpread_adj']
+
+
+    # convert each game into two rows, one for each team and remove unwated rows.
+    teams = pd.concat([
+        data[['homeTeam', 'homeSpread', 'homeSpread_adj', 'awayTeam', ]].rename(columns={'homeTeam': 'team', 'homeSpread': 'spread',  'awayTeam': 'opponent', 'homeSpread_adj' : 'adj_spread'}),
+        data[['awayTeam', 'awaySpread', 'awaySpread_adj', 'homeTeam' ,]].rename(columns={'awayTeam': 'team', 'awaySpread': 'spread',  'homeTeam': 'opponent', 'awaySpread_adj' : 'adj_spread'})
+    ])
+
+
+
+    # set maximum spread for win or loss to 28 and -28 respectively
+    teams['adj_spread'] = np.where(teams['adj_spread'] > 28, 28, teams['adj_spread']) # cap the upper bound scoring margin at +28 points
+    teams['adj_spread'] = np.where(teams['adj_spread'] < -28, -28, teams['adj_spread']) # cap the lower bound scoring margin at -28 points
+
+    # group rows by team
+    spreads = teams.groupby('team').adj_spread.mean()
+    return sreads.head(50)
 '''
-
-
-
-
-
-
-# change postseason games from week 1 to week 15
-data['week'] = np.where(data['season_type'] == 'postseason',15, data['week'])
-
-# subtract 2.5 points from the home teams spread, keep neutral as is, and add 2.5 to away teams.
-data['home_spread_adj'] = np.where(data['neutral_site'] == True, data['home_spread'], (data['home_spread'] - 2.5))
-data['away_spread_adj'] = -data['home_spread_adj']
-
-
-# convert each game into two rows, one for each team and remove unwated rows.
-teams = pd.concat([
-    data[['home_team', 'home_spread', 'home_spread_adj', 'away_team', ]].rename(columns={'home_team': 'team', 'home_spread': 'spread',  'away_team': 'opponent', 'home_spread_adj' : 'adj_spread'}),
-    data[['away_team', 'away_spread', 'away_spread_adj', 'home_team' ,]].rename(columns={'away_team': 'team', 'away_spread': 'spread',  'home_team': 'opponent', 'away_spread_adj' : 'adj_spread'})
-])
-
-
-
-# set maximum spread for win or loss to 28 and -28 respectively
-teams['adj_spread'] = np.where(teams['adj_spread'] > 28, 28, teams['adj_spread']) # cap the upper bound scoring margin at +28 points
-teams['adj_spread'] = np.where(teams['adj_spread'] < -28, -28, teams['adj_spread']) # cap the lower bound scoring margin at -28 points
-
-# group rows by team
-spreads = teams.groupby('team').adj_spread.mean()
-spreads.head()
 
 
 # create empty arrays
