@@ -126,6 +126,9 @@ def get_rankings():
     loss2 = []
     schedule2 = pd.DataFrame(columns = ['Team', 'Victories','Losses'])
 
+    return schedule2.head(5)
+'''
+
     for team in teams3:
      # get a list of team opponents
         opps = list(teams2[teams2['team'] == team]['opponent'])
@@ -165,8 +168,6 @@ def get_rankings():
     mean = PR.adj.mean()
     PR['adj'] = PR['adj'] - mean
 
-    return PR.head(5)
-'''
     # create new data frame for each game containing columns listed below
     home_teams = pd.concat([
         data[['home_team', 'home_points', 'away_points', 'away_team' ,'week']].rename(columns={'home_team': 'team', 'home_points': 'offense',  'away_points': 'defense', 'away_team' : 'opponent'})
