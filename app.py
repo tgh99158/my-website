@@ -14,12 +14,11 @@ def index():
             titles=df.columns.values
         )
     except Exception as e:
-        # Show the error in the browser instead of crashing the app
-        return f"<h2>Error fetching data: {e}</h2>"
+        return f"Error fetching data: {e}"
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Render provides a PORT
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=False)  # Set debug=False for production-like testing
 
 
 
