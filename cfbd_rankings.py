@@ -1,7 +1,7 @@
 # Load Packages
 import os
-#from IPython.core.display import HTML
-#import xlrd as xl
+from IPython.core.display import HTML
+import xlrd as xl
 import numpy as np
 import pandas as pd
 import requests
