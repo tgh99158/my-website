@@ -18,8 +18,8 @@ def index():
         return f"<h2>Error fetching data: {e}</h2>"
 
 if __name__ == "__main__":
-    ##port = int(os.environ.get("PORT", 5000))  # Render provides a PORT
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Render provides a PORT
+    app.run(host="0.0.0.0", port=port, debug=True)
 
 
 
