@@ -21,40 +21,30 @@ def get_rankings():
         headers={"Authorization": f"Bearer {api_key}"}
     )
     data = pd.read_json(StringIO(response.text))
-    return data.head()
+    
 
+    # only include games that have already been played
+    data = data[
+        (data['homePoints'] == data['homePoints'])
+        & (data['awayPoints'] == data['awayPoints'])
+        & (pd.notna(data['home_conference']))
+        & (pd.notna(data['away_conference']))
+    ]
+
+    #create copy for dataset with all teams
+    data2 = data
+    # only include teams in division one FBS
+    data = data[data['home_division']== 'fbs']
+    data = data[data['away_division'] == 'fbs']
+    # create spread variable
+    data['home_spread'] = data['home_points'] - data['away_points']
+    data['away_spread'] = -data['home_spread']
+    return data.head(50)
 '''
 
-def get_rankings():
-    year = datetime.now().year
-    # scrape data
-    response = requests.get(
-        "https://api.collegefootballdata.com/games",
-        params={"year": year, "seasonType": "both"},
-        headers = {"Authorization": "Bearer G7EL3wSl1uoDYSQOw1aVQ+yKey9MG1nYqP3pLaW+sPKAzo/NiGJiKLi5fHo38xXa"}
-    )
 
-    # read data as simplestring
-    data = pd.read_json(StringIO(response.text))
-    
-    return data
 
-# only include games that have already been played
-data = data[
-    (data['home_points'] == data['home_points'])
-    & (data['away_points'] == data['away_points'])
-    & (pd.notna(data['home_conference']))
-    & (pd.notna(data['away_conference']))
-]
 
-#create copy for dataset with all teams
-data2 = data
-# only include teams in division one FBS
-data = data[data['home_division']== 'fbs']
-data = data[data['away_division'] == 'fbs']
-# create spread variable
-data['home_spread'] = data['home_points'] - data['away_points']
-data['away_spread'] = -data['home_spread']
 
 
 # change postseason games from week 1 to week 15
