@@ -49,7 +49,6 @@ def get_rankings():
     data['awaySpread_adj'] = -data['homeSpread_adj']
 
     return data.head(50)
-'''
 
 
     # convert each game into two rows, one for each team and remove unwated rows.
@@ -367,7 +366,7 @@ def get_rankings():
 
     # change null rankings to NR
     rankings_m['AP'] = np.where(rankings_m['AP'].isna(), 'NR',rankings_m['AP'])
-'''
+
 
     
 
