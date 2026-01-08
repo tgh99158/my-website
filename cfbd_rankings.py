@@ -10,7 +10,7 @@ import json
 from io import StringIO
 import numpy as np
 import requests
-#from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 from datetime import datetime
 
 def get_rankings():
